@@ -6,7 +6,6 @@ exports.createUser=function(req,res,next){
     lastName: req.body.lastName,
     password: req.body.password
   });
-
   user.save(function(err, user) {
     if (err){
       return res.json(err.errors);
@@ -78,16 +77,20 @@ exports.sign_in=function(req,res,next){
   var userName=req.body.userName;
   var userPassword=req.body.password;
   return User.findOne({userName:userName,password: userPassword},function(err,user){
-    if (err){
+    if (err || !user){
       res.status(401);
+      res.render('./index.jade');
     }else{
-      res.cookie('userName', user.userName, { signed: true });
-      res.json({status: 'Successfully Signed In as '+user.userName});
+      res.cookie('userName', user.userName);
+      res.cookie('userId', user._id);
+      res.render('./blog.jade');
     }
   });
 }
 
 exports.sign_out=function(req,res,next){
+  console.log('clearing');
   res.clearCookie('userName');
-  res.json({ status : 'Successfully Signed Out'});
+  res.clearCookie('userId');
+  next();
 }

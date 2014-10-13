@@ -2,19 +2,19 @@
 	var user_mod=angular.module('users_mod',['ngRoute']);
 
 	user_mod.controller('UserController',['$scope','authenticator',function($scope,authenticator){
+		var controller=this;
 		this.login= function(){
-			authenticator.login(this.userName,this.password);
+			authenticator.login(controller.userName,controller.password);
 		};
 
 		this.register= function(){
-			var user={
-				userName: this.userName,
-				firstName: this.firstName,
-				lastName: this.lastName,
-				password: this.password,
+			authenticator.register({
+				userName: controller.userName,
+				firstName: controller.firstName,
+				lastName: controller.lastName,
+				password: controller.password,
 					
-			};
-			authenticator.register(user);
+			});
 		};
 		this.logout= function(){
 			authenticator.logout();
@@ -23,35 +23,23 @@
 
 	user_mod.factory('authenticator', ['$window','$http', function(win,http) {
       return {
-      	register: function(username,password){
+      	register: function(user){
+			http.post('/register',user).success(function(data,status){
+				win.alert("User successfully registered");
+			}).error(function(data,status){
+				win.alert("Regristration Failled");
+			});
+    	},
+    	login: function(userName,password){
     		var data={
-    			username: username,
+    			userName: userName,
     			password:password
     		}
-			http.post('/api/v1/users/sign_in',data).success(function(data,status){
-				win.alert("logged in");
+			http.post('/sign_in',data).success(function(data,status){
+				win.location='/authenticated/blogs';
 			}).error(function(data,status){
 				win.alert("Authentication Failure");
 			});
-    	},
-    	login: function(username,password){
-    		var data={
-    			username: username,
-    			password:password
-    		}
-			http.post('/api/v1/users/sign_in',data).success(function(data,status){
-				win.alert("logged in");
-			}).error(function(data,status){
-				win.alert("Authentication Failure");
-			});
-    	},
-    	logout: function(user_id){
-    		http.delete('/api/v1/users/'+user_id).success(function(response,status){
-				win.alert("logged out successfully");
-			}).error(function(data, status){
-				win.alert("Error logging out");
-			});
-    		
     	}
       };
 	}]);

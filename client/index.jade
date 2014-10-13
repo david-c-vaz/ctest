@@ -1,18 +1,4 @@
-doctype html
-html
-	head
-		link(rel="stylesheet",href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
-		link(rel="stylesheet",href="./assets/styles/styles.css")
-	body
-		.container(ng-app="testApplication")
-			header
-			.col-lg-12.content_container(ng-view)
-				h4 Subheading
-				p Some text.
-			footer
-		script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js")
-		script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-route.min.js")
-		script(src="./modules/static_pages/index.js")
-		script(src="./modules/users/index.js")
-		script(src="./modules/app.js")
-		script(src="./modules/directives.js")
+extends layout
+
+block content
+	.col-lg-12.content_container(ng-view)

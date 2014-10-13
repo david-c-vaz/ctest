@@ -1,0 +1,8 @@
+sadsd
+
+<div ng-controller="BlogController as blogController">
+	<div class="blog_container" ng-repeat="blog in blogController.blogs">
+		Title : <span class="title" ng-bind="blog.title"></span> |	Content : <span class="content" ng-bind="blog.content"></span>
+		<a href="/Blog/show/{{blog['_id']}}">Show</a> | <a href="/Blog/edit/{{blog['_id']}}">Edit</a>	|	<a href="/Blog/delete/{{blog['_id']}}">Delete</a>
+	</div>
+</div>

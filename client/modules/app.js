@@ -1,4 +1,4 @@
-var app=angular.module('testApplication',['ngRoute','static-pages','users_mod']);
+var app=angular.module('testApplication',['ngRoute','static-pages','users_mod','ngCookies','blogs_mod']);
 app.config(function($routeProvider,$locationProvider){
 $routeProvider.when('/',{
 			templateUrl: './modules/static_pages/templates/home.html',
