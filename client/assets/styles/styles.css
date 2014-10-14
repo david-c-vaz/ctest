@@ -1,3 +1,6 @@
 .content_container{
 	min-height: 400px;
 }
+table th.sortable{
+	cursor: pointer;
+}

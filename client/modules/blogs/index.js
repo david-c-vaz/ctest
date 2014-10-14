@@ -100,7 +100,7 @@
 
 				function sortFactory(property,order) {
 					if(order){
-						$scope.options[property]=ORDER.DESC
+						$scope.options[property]=ORDER.DESC;
    						return function(a,b){ 
    							if(a[property]< b[property])
    								return -1;
@@ -110,7 +110,7 @@
    								return 0;
    						};
    					}else{
-   						$scope.options[property]=ORDER.ASC
+   						$scope.options[property]=ORDER.ASC;
    						return function(a,b){
 							if(a[property]> b[property])
    								return -1;

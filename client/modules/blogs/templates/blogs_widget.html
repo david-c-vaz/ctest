@@ -1,12 +1,12 @@
 <table class="table table-hover">
 	<thead>
 		<tr>
-			<th class="col-xs-3" ng-click="blogViewController.sort('title')">
+			<th class="col-xs-3 sortable" ng-click="blogViewController.sort('title')">
 				<span>Title<span>
 				<span ng-show="options.title">&#x25B2;</span>
 				<span ng-hide="options.title">&#x25BC;</span>
 			</th>
-			<th class="col-xs-5" ng-click="blogViewController.sort('content')">
+			<th class="col-xs-5 sortable" ng-click="blogViewController.sort('content')">
 				<span>Content<span>
 				<span ng-show="options.content">&#x25B2;</span>
 				<span ng-hide="options.content">&#x25BC;</span>
