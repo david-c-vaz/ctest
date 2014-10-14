@@ -1,8 +1,23 @@
-<h1>All Blogs</h1>
-
-<div ng-controller="BlogController as blogController">
-	<div class="blog_container" ng-repeat="blog in blogController.blogs">
-		Title : <span class="title" ng-bind="blog.title"></span> |	Content : <span class="content" ng-bind="blog.content"></span>
-		<a href="/Blog/show/{{blog['_id']}}">Show</a> | <a href="/Blog/edit/{{blog['_id']}}">Edit</a>	|	<a href="/Blog/delete/{{blog['_id']}}">Delete</a>
-	</div>
+<div class="container-fluid">
+  <div class="row">
+	<h3>My Blogs</h3>
+	<table class="table table-condensed table-hover">
+		<thead>
+			<tr>
+				<th class="col-xs-3">Title</th>
+				<th class="col-xs-5">Content</th>
+				<th class="col-xs-4" colspan="3">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr  ng-repeat="blog in blogs">
+				<td ng-bind="blog.title"></td>
+				<td ng-bind="blog.content"></td>
+				<td ng-click="blogController.showBlog(blog)">Show</td>
+				<td ng-click="blogController.deleteBlog(blog)">Delete</td>
+			</tr>
+		</tbody>
+	</table>
+	<blog-widget send></blog-widget>
+  </div>
 </div>

@@ -65,7 +65,6 @@ exports.deleteBlog=function(req,res,next){
 exports.allBlogs=function(req,res,next){
   var start=req.query.start||0;
   var limit=req.query.limit||5;
-  console.log(start);
   return Blog.find({},{}, { skip : start, limit : limit },function(err,blogs){
       if (err) {
         return res.json({'status': err});

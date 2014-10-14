@@ -36,7 +36,7 @@
     			password:password
     		}
 			http.post('/sign_in',data).success(function(data,status){
-				win.location='/authenticated/blogs';
+				win.location='/authenticated/blogs#/all_blogs';
 			}).error(function(data,status){
 				win.alert("Authentication Failure");
 			});
