@@ -6,7 +6,8 @@
   </div>
   <div class="form-group">
     <label for="content">Content </label>
-    <input type="text" class="form-control" id="content" placeholder="Enter title" name="title" ng-model="currentBlog.content" required>
+    <textarea class="form-control" id="content" placeholder="Enter Content" name="content" ng-model="currentBlog.content" required>
+    </textarea> 
   </div>
   <input type="submit" class="btn btn-default" value="Submit">
   <input type="cancel" class="btn btn-default" ng-click="blogController.cancel()" value="Cancel">
