@@ -1,29 +1,7 @@
 <div class="container-fluid">
   <div class="row">
 	<h3>My Blogs</h3>
-	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th class="col-xs-3">Title</th>
-				<th class="col-xs-5">Content</th>
-				<th class="col-xs-2">Created At</th>
-				<th class="col-xs-2" colspan="2">Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr  ng-repeat="blog in blogs">
-				<td ng-bind="blog.title"></td>
-				<td ng-bind="blog.content"></td>
-				<td ng-bind="blog.created_at| date"></td>
-				<td>
-					<span class="btn btn-default btn-xs" ng-click="blogController.showBlog(blog)">Show</span>
-				</td>
-				<td>
-					<span class="btn btn-default btn-xs" ng-click="blogController.deleteBlog(blog)">Delete</span>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<blog-widget send></blog-widget>
+	<blog-widget></blog-widget>
+	<blog-writer></blog-writer>
   </div>
 </div>

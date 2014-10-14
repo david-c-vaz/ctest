@@ -1,0 +1,31 @@
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th class="col-xs-3" ng-click="blogViewController.sort('title')">
+				<span>Title<span>
+				<span ng-show="options.title">&#x25B2;</span>
+				<span ng-hide="options.title">&#x25BC;</span>
+			</th>
+			<th class="col-xs-5" ng-click="blogViewController.sort('content')">
+				<span>Content<span>
+				<span ng-show="options.content">&#x25B2;</span>
+				<span ng-hide="options.content">&#x25BC;</span>
+			</th>
+			<th class="col-xs-2">Created At</th>
+			<th class="col-xs-2" colspan="2">Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr  ng-repeat="blog in blogs">
+			<td ng-bind="blog.title"></td>
+			<td ng-bind="blog.content"></td>
+			<td ng-bind="blog.created_at| date: 'yyyy-MM-dd HH:mm:ss'"></td>
+			<td>
+				<span class="btn btn-default btn-xs" ng-click="blogController.showBlog(blog)">Show</span>
+			</td>
+			<td>
+				<span class="btn btn-default btn-xs" ng-click="blogController.deleteBlog(blog)">Delete</span>
+			</td>
+		</tr>
+	</tbody>
+</table>

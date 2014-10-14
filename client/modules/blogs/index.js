@@ -3,9 +3,14 @@
 
 	blog_mod.controller('BlogController',['$scope','blogger',function($scope,blogger){
 		$scope.currentBlog={};
+		$scope.$on('sorted_blogs',function(event,data){
+			$scope.blogs=data;
+		});
+
 		this.getBlogs= function(start){
 			blogger.getBlogs(start).success(function(data){
 				$scope.blogs=data;;
+				$scope.$broadcast('blogs-list',data);
 			}).error(function(data,status){
 				alert(data);
 			});
@@ -30,7 +35,6 @@
 		};
 		this.deleteBlog=function(blog){
 			blogger.remove(blog).success(function(data,status){
-
 				for(var index=0;index<$scope.blogs.length;index++){
 					if($scope.blogs[index]._id===blog._id){
 						$scope.blogs.splice(index,1);
@@ -68,12 +72,64 @@
       };
 	}]);
 
-	blog_mod.directive('blogWidget',function(){
+	blog_mod.directive('blogWriter',function(){
 		return {
 			restrict: 'E',
 			templateUrl: './../modules/blogs/templates/form.html'
 		}
-	})
+	});
+
+	blog_mod.directive('blogWidget',function(){
+		return {
+			restrict: 'E',
+			templateUrl: './../modules/blogs/templates/blogs_widget.html',
+			controller: function($scope){
+				var ORDER={
+					ASC: true,
+					DESC: false
+				}
+				$scope.options={
+					title: ORDER.ASC,
+					content: ORDER.ASC,
+					created_at: ORDER.ASC 
+				};
+				this.blogs=[];
+				$scope.$on('blogs-list',function(event,data){
+					$scope.blogs=data;
+				});
+
+				function sortFactory(property,order) {
+					if(order){
+						$scope.options[property]=ORDER.DESC
+   						return function(a,b){ 
+   							if(a[property]< b[property])
+   								return -1;
+   							else if(a[property]> b[property])
+   								return 1;
+   							else
+   								return 0;
+   						};
+   					}else{
+   						$scope.options[property]=ORDER.ASC
+   						return function(a,b){
+							if(a[property]> b[property])
+   								return -1;
+   							else if(a[property]< b[property])
+   								return 1;
+   							else
+   								return 0;
+   						};
+   					}
+				}
+				this.sort=function(property){
+					$scope.blogs.sort(sortFactory(property,$scope.options[property]));
+					$scope.$emit('sorted_blogs',$scope.blogs);
+				};
+			},
+			controllerAs: 'blogViewController'
+		}
+	});
+
 	blog_mod.config(function($routeProvider,$locationProvider){
 		$routeProvider.when('/all_blogs',{
 			templateUrl: './../modules/blogs/templates/index.html',
