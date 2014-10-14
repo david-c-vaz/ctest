@@ -13,7 +13,7 @@ authenticated_router.route('/users').get(users_controller.allUsers);
 authenticated_router.route('/users/:id').get(users_controller.showUser);
 authenticated_router.route('/users/:id').put(users_controller.updateUser);
 authenticated_router.route('/users/:id').delete(users_controller.deleteUser);
-authenticated_router.route('/sign_out').delete(users_controller.sign_out);
+authenticated_router.route('/sign_out').delete(users_controller.sign_out_user);
 
 authenticated_router.route('/blogs').get(blogs_controller.list);
 authenticated_router.route('/blogs/all').get(blogs_controller.allBlogs);

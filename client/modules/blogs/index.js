@@ -17,12 +17,12 @@
 	}]);
 
 	blog_mod.config(function($routeProvider,$locationProvider){
-		$routeProvider.when('authenticated/blogs',{
+		$routeProvider.when('/authenticated/blogs#/',{
 			templateUrl: './modules/blogs/templates/index.html',
 			controller: 'BlogController',
 			controllerAs:'blogController'
 		}).otherwise({
-        	redirect: 'authenticated/blogs'
+        	redirect: '/authenticated/blogs#/'
     	});
 	});
 })();

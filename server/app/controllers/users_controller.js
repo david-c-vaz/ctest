@@ -88,9 +88,8 @@ exports.sign_in=function(req,res,next){
   });
 }
 
-exports.sign_out=function(req,res,next){
-  console.log('clearing');
+exports.sign_out_user=function(req,res,next){
   res.clearCookie('userName');
   res.clearCookie('userId');
-  next();
+  return res.json({'status': 'Successfully Signed Out'}); 
 }
