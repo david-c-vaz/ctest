@@ -5,7 +5,11 @@ var mongoose = require('mongoose')
 var blogSchema = new mongoose.Schema({
       'title': { type: String },
       'content': String,
-      'created_at': {type: Date, default: Date.now}
+      'created_at': {type: Date, default: Date.now},
+      'author': {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
   });
 var Blog=mongoose.model('Blog', blogSchema);
 

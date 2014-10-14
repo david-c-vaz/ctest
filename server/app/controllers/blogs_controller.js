@@ -2,7 +2,8 @@ var Blog=require('../models/blog');
 exports.createBlog=function(req,res,next){
   var blog=new Blog({
     title: req.body.title,
-    content: req.body.content
+    content: req.body.content,
+    author: req.cookies.userId
   });
 
   blog.save(function(err, blog) {
@@ -17,7 +18,7 @@ exports.createBlog=function(req,res,next){
 }
 
 exports.showBlog=function(req,res,next){
-    return Blog.findById(req.params.id,function(err,blog){
+    return Blog.findById(req.params.id).populate('author').exec(function(err,blog){
       if (err) {
         return res.json({'status': 'Cannot Find Blog','error':err });
       } else {
@@ -64,8 +65,8 @@ exports.deleteBlog=function(req,res,next){
 
 exports.allBlogs=function(req,res,next){
   var start=req.query.start||0;
-  var limit=req.query.limit||5;
-  return Blog.find({},{}, { skip : start, limit : limit },function(err,blogs){
+  var limit=req.query.limit||10;
+  return Blog.find({author: req.cookies.userId}).skip(start).limit(limit).populate('author').exec(function(err,blogs){
       if (err) {
         return res.json({'status': err});
       } else {
